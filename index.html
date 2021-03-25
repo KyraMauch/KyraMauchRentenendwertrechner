@@ -1,0 +1,66 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Rentenendwertrechner</title>
+<script>
+
+"use strict";
+function fRechnen() {
+
+var vAusgabeHtml;
+var vZinssatz = 0;
+var vLaufzeit;
+var vRente;
+var vZinsfaktor;
+var vRentenendwert;
+var vJahr = 1;
+var vKapitalE;
+var vKapitalA;
+
+
+vZinssatz = parseFloat(document.getElementById("idZinssatz").value)
+vRente = parseFloat(document.getElementById("idRente").value)
+vLaufzeit = parseFloat(document.getElementById("idLaufzeit").value)
+
+
+
+vAusgabeHtml = " "
+vAusgabeHtml = vAusgabeHtml + "<table border = 1>"
+vAusgabeHtml = vAusgabeHtml + "<tr><th> Jahr </th><th> Kapital am 1.1  </th><th> Zinsen am 31.12 </th><th> Rente am 31.12 </th><th> Kapital am 31.12 </th></tr>";
+vKapitalE = vKapitalA + vZinssatz + vRentenendwert;
+
+while (vJahr <= vLaufzeit) {
+vKapitalA  = 0;
+
+vZinsfaktor = 1 + vZinssatz / 100;
+
+vRentenendwert =vRente*(Math.pow(vZinsfaktor,vLaufzeit-1)/(vZinsfaktor-1)
+
+vKapitalE = vKapitalA + vZinssatz + vRentenendwert;
+
+vAusgabeHtml = vAusgabeHtml + "<tr><td>" + vJahr+ "</td><td>" + vKapitalA.toFixed(2) + "</td><td>" + vZinsfaktor.toFixed(2) + "</td><td>" + vRentenendwert.toFixed(2) + "</td><td>" + vKapitalE.toFixed(2) + "</td></tr>";
+		vJahr++;
+
+
+
+vAusgabeHtml = vAusgabeHtml + "</table>";
+vAusgabeHtml = vAusgabeHtml + "<br>" + "Der Rentenendwert beträgt " + vRentenendwert + "€";
+
+document.getElementById("idAusgabeHtml").innerHTML = vAusgabeHtml;
+}
+
+</script>
+</head>
+
+<body>
+	<h1>Nachschüssiger Rentenendwertrechner</h1>
+	<p>Zinssatz: <input id="idZinssatz" type="text" value="2" maxlength="10" size="10"> % </p>
+	<p>Nachschüssige Rente: <input id="idRente" type="text" value="100" maxlength="10" size="10"> € </p>
+	<p>Laufzeit: <input id="idLaufzeit" type="text" value="5" maxlength="10" size="10"> Jahre </p>
+	<br>
+	<button onclick="fRechnen();"> Berechnen</button>
+ 	<p> Klicken Sie auf den Button Berechnen, damit hier eine Tabelle erscheint... </p>
+<div id="idAusgabeHtml">
+
+
+</body></html>
